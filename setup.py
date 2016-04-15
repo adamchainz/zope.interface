@@ -79,12 +79,11 @@ else:
     py_impl = getattr(platform, 'python_implementation', lambda: None)
     is_pypy = py_impl() == 'PyPy'
     is_jython = 'java' in sys.platform
-    is_pure = 'PURE_PYTHON' in os.environ
 
     # Jython cannot build the C optimizations, while on PyPy they are
     # anti-optimizations (the C extension compatibility layer is known-slow,
     # and defeats JIT opportunities).
-    if is_pypy or is_jython or is_pure:
+    if is_pypy or is_jython:
         features = {}
     else:
         features = {'codeoptimization': codeoptimization}
